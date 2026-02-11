@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Manage Admin Internships - Internship Tracker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <h1>Manage Admin Internships</h1>
+      <nav>
+        <a href="admin-dashboard.html">Dashboard</a>
+        <button id="logout-btn" class="btn secondary small">Logout</button>
+      </nav>
+    </header>
+
+    <main class="content">
+      <section class="card">
+        <div class="section-header">
+          <h2>Admin Internships</h2>
+          <button id="add-admin-internship-btn" class="btn primary small">Add Internship</button>
+        </div>
+        <table class="data-table" id="admin-internships-table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Company</th>
+              <th>Location</th>
+              <th>Application Deadline</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+    </main>
+
+    <div id="admin-internship-modal" class="modal hidden">
+      <div class="modal-content card">
+        <h2 id="admin-modal-title">Add Admin Internship</h2>
+        <form id="admin-internship-form">
+          <input type="hidden" id="admin-internship-id" />
+          <label>
+            Title
+            <input type="text" id="title" required />
+          </label>
+          <label>
+            Company Name
+            <input type="text" id="company_name" required />
+          </label>
+          <label>
+            Location
+            <input type="text" id="location" />
+          </label>
+          <label>
+            Application Deadline
+            <input type="date" id="application_deadline" />
+          </label>
+          <label>
+            Offer Deadline
+            <input type="date" id="offer_deadline" />
+          </label>
+          <div class="modal-actions">
+            <button type="button" id="admin-cancel-modal" class="btn secondary">Cancel</button>
+            <button type="submit" class="btn primary">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/admin-manage-internships.js"></script>
+  </body>
+  </html>
+

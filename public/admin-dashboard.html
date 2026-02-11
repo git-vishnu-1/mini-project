@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Admin Dashboard - Internship Tracker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <h1>Admin Dashboard</h1>
+      <nav>
+        <a href="admin-manage-internships.html">Manage Internships</a>
+        <button id="logout-btn" class="btn secondary small">Logout</button>
+      </nav>
+    </header>
+
+    <main class="content">
+      <section class="card">
+        <h2>Global Status Overview</h2>
+        <div id="global-status-counts" class="status-grid"></div>
+      </section>
+
+      <section class="card">
+        <h2>Students</h2>
+        <table class="data-table" id="students-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Joined</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+    </main>
+
+    <script src="js/api.js"></script>
+    <script src="js/admin-dashboard.js"></script>
+  </body>
+  </html>
+

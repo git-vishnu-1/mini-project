@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>My Internships - Internship Tracker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <h1>My Internships</h1>
+      <nav>
+        <a href="admin-internships.html">Browse Admin Internships</a>
+        <button id="logout-btn" class="btn secondary small">Logout</button>
+      </nav>
+    </header>
+
+    <main class="content">
+      <section class="card">
+        <h2>Status Overview</h2>
+        <div id="status-counts" class="status-grid"></div>
+      </section>
+
+      <section class="card">
+        <div class="section-header">
+          <h2>Your Applications</h2>
+          <button id="add-internship-btn" class="btn primary small">Add Internship</button>
+        </div>
+        <table class="data-table" id="internships-table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Company</th>
+              <th>Status</th>
+              <th>Application Deadline</th>
+              <th>Offer Deadline</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+    </main>
+
+    <div id="internship-modal" class="modal hidden">
+      <div class="modal-content card">
+        <h2 id="modal-title">Add Internship</h2>
+        <form id="internship-form">
+          <input type="hidden" id="internship-id" />
+          <label>
+            Title
+            <input type="text" id="title" required />
+          </label>
+          <label>
+            Company Name
+            <input type="text" id="company_name" required />
+          </label>
+          <label>
+            Status
+            <select id="status">
+              <option>Pending</option>
+              <option>Applied</option>
+              <option>Interviewing</option>
+              <option>Accepted</option>
+              <option>Rejected</option>
+            </select>
+          </label>
+          <label>
+            Application Deadline
+            <input type="date" id="application_deadline" />
+          </label>
+          <label>
+            Offer Deadline
+            <input type="date" id="offer_deadline" />
+          </label>
+          <label>
+            Notes
+            <textarea id="notes" rows="3"></textarea>
+          </label>
+          <div class="modal-actions">
+            <button type="button" id="cancel-modal" class="btn secondary">Cancel</button>
+            <button type="submit" class="btn primary">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/student-dashboard.js"></script>
+  </body>
+  </html>
+

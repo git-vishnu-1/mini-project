@@ -24,7 +24,63 @@ body {
 }
 .site-header-nav-link{
   color: white;
+  padding-bottom: 0.25rem;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s ease, color 0.2s ease;
 }
+
+.browse-student {
+  color: white;
+  padding-bottom: 0.25rem;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.browse-student:hover {
+  color: #2563eb;
+  border-color: #ffdd57;
+}
+
+.site-header-nav-link:hover {
+  color: #2563eb;
+  border-color: #ffdd57;
+}
+
+.admin-dash{
+  color: white;
+  padding-bottom: 0.25rem;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s ease, color 0.2s ease
+}
+
+.admin-dash:hover {
+  color: #2563eb;
+  border-color: #ffdd57;
+}
+.admin-intern{
+  color: white;
+  padding-bottom: 0.25rem;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s ease, color 0.2s ease
+}
+
+.admin-intern:hover {
+  color: #2563eb;
+  border-color: #ffdd57;
+}
+
+.student-intern{
+  color: white;
+  padding-bottom: 0.25rem;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s ease, color 0.2s ease
+}
+
+.student-intern:hover {
+  color: #2563eb;
+  border-color: #ffdd57;
+}
+
 a{
   color: #2563eb;
   text-decoration: none;
@@ -83,7 +139,9 @@ a:hover {
 
 .btn.primary:hover {
   background: #1d4ed8;
-  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.25);
+box-shadow: 0 8px 18px rgba(37, 99, 235, 0.12);
+transform: translateY(-2px);
+transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .btn.secondary {
@@ -93,7 +151,9 @@ a:hover {
 
 .btn.secondary:hover {
   background: #d1d5db;
-  box-shadow: 0 8px 18px rgba(17, 24, 39, 0.12);
+box-shadow: 0 8px 18px rgba(37, 99, 235, 0.12);
+transform: translateY(-2px);
+transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .btn:active {

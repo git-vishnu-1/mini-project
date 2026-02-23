@@ -2,41 +2,101 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Admin Dashboard - Internship Tracker</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/styles.css" />
+    <title>System Admin - Internship Tracker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header class="site-header">
-      <h1>Admin Dashboard</h1>
-      <nav>
-        <a class="admin-intern" href="admin-manage-internships.html">Manage Internships</a>
-        <button id="logout-btn" class="btn secondary small">Logout</button>
-      </nav>
-    </header>
-
-    <main class="content">
-      <section class="card">
-        <h2>Global Status Overview</h2>
-        <div id="global-status-counts" class="status-grid"></div>
-      </section>
-
-      <section class="card">
-        <h2>Students</h2>
-        <table class="data-table" id="students-table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Joined</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </section>
-    </main>
-
-    <script src="js/api.js"></script>
+    <div class="app-shell">
+      <header class="app-header">
+        <div class="brand">
+          <span class="brand-mark">IT</span>
+          <span class="brand-text">Internship Tracker</span>
+        </div>
+        <div class="header-actions">
+          <span id="admin-name" class="chip"></span>
+          <button id="logout-btn" class="btn ghost">Logout</button>
+        </div>
+      </header>
+      <main class="app-main">
+        <section class="layout">
+          <div class="layout-main">
+            <div class="toolbar">
+              <h1>Pending Student Approvals</h1>
+            </div>
+            <div class="card">
+              <table class="table" id="pending-table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Department</th>
+                    <th>Class</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+          <aside class="layout-side">
+            <div class="card">
+              <h2 class="card-title">Create Staff Account</h2>
+              <form id="create-staff-form" class="form">
+                <div class="form-group">
+                  <label for="staff-name">Name</label>
+                  <input id="staff-name" type="text" required />
+                </div>
+                <div class="form-group">
+                  <label for="staff-email">Email</label>
+                  <input id="staff-email" type="email" required />
+                </div>
+                <div class="form-group">
+                  <label for="staff-password">Temporary Password (hashed)</label>
+                  <input id="staff-password" type="text" required />
+                </div>
+                <div class="form-group">
+                  <label for="staff-role">Role</label>
+                  <select id="staff-role" required>
+                    <option value="CLASS_TEACHER">Class Teacher</option>
+                    <option value="HOD">HOD</option>
+                    <option value="PRINCIPAL">Principal</option>
+                    <option value="SYSTEM_ADMIN">System Admin</option>
+                  </select>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="staff-dept">Department (for HOD/Teacher)</label>
+                    <select id="staff-dept">
+                      <option value="">None</option>
+                      <option value="CSE">CSE</option>
+                      <option value="EEE">EEE</option>
+                      <option value="ECE">ECE</option>
+                      <option value="MECH">MECH</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="staff-year">Year (for Class Teacher)</label>
+                    <select id="staff-year">
+                      <option value="">None</option>
+                      <option value="1st Year">1st Year</option>
+                      <option value="2nd Year">2nd Year</option>
+                      <option value="3rd Year">3rd Year</option>
+                      <option value="4th Year">4th Year</option>
+                    </select>
+                  </div>
+                </div>
+                <button type="submit" class="btn primary w-100">Create Staff User</button>
+                <p class="hint">
+                  Password must already be a bcrypt hash. (Generate once using a secure tool, then paste here.)
+                </p>
+                <div id="staff-message" class="message hidden"></div>
+              </form>
+            </div>
+          </aside>
+        </section>
+      </main>
+    </div>
     <script src="js/admin-dashboard.js"></script>
   </body>
   </html>

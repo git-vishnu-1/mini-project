@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Class Teacher Dashboard - Internship Tracker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="app-header">
+        <div class="brand">
+          <span class="brand-mark">IT</span>
+          <span class="brand-text">Internship Tracker</span>
+        </div>
+        <div class="header-actions">
+          <span id="teacher-name" class="chip"></span>
+          <button id="logout-btn" class="btn ghost">Logout</button>
+        </div>
+      </header>
+      <main class="app-main">
+        <section class="layout">
+          <div class="layout-main">
+            <div class="toolbar">
+              <h1>My Class Overview</h1>
+              <button id="export-class-csv" class="btn ghost">Download CSV</button>
+            </div>
+            <div class="card">
+              <table class="table" id="class-table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Latest Status</th>
+                    <th>Company</th>
+                    <th>Role</th>
+                    <th>Edit</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+          <aside class="layout-side">
+            <div class="card">
+              <h2 class="card-title">Status Breakdown</h2>
+              <canvas id="classStatusChart"></canvas>
+            </div>
+          </aside>
+        </section>
+      </main>
+    </div>
+    <div id="edit-student-modal" class="modal hidden">
+      <div class="modal-backdrop"></div>
+      <div class="modal-content card">
+        <div class="modal-header">
+          <h2>Edit Student</h2>
+          <button id="edit-modal-close" class="icon-button" aria-label="Close">&times;</button>
+        </div>
+        <form id="edit-student-form" class="form">
+          <input type="hidden" id="edit-student-id" />
+          <div class="form-group">
+            <label for="edit-student-name">Name</label>
+            <input id="edit-student-name" type="text" required />
+          </div>
+          <div class="form-group">
+            <label for="edit-student-email">Email</label>
+            <input id="edit-student-email" type="email" required />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="edit-student-dept">Department</label>
+              <select id="edit-student-dept" required>
+                <option value="CSE">CSE</option>
+                <option value="EEE">EEE</option>
+                <option value="ECE">ECE</option>
+                <option value="MECH">MECH</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="edit-student-year">Year</label>
+              <select id="edit-student-year" required>
+                <option value="1st Year">1st Year</option>
+                <option value="2nd Year">2nd Year</option>
+                <option value="3rd Year">3rd Year</option>
+                <option value="4th Year">4th Year</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" class="btn primary w-100">Save</button>
+          <div id="edit-modal-message" class="message hidden"></div>
+        </form>
+      </div>
+    </div>
+    <script src="js/teacher-dashboard.js"></script>
+  </body>
+  </html>
+

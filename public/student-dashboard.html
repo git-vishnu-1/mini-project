@@ -2,90 +2,159 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>My Internships - Internship Tracker</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/styles.css" />
+    <title>Student Dashboard - Internship Tracker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
-    <header class="site-header">
-      <h1>My Internships</h1>
-      <nav>
-        <a class="browse-student" href="admin-internships.html">Browse Admin Internships</a>
-        <button id="logout-btn" class="btn secondary small">Logout</button>
-      </nav>
-    </header>
-
-    <main class="content">
-      <section class="card">
-        <h2>Status Overview</h2>
-        <div id="status-counts" class="status-grid"></div>
-      </section>
-
-      <section class="card">
-        <div class="section-header">
-          <h2>Your Applications</h2>
-          <button id="add-internship-btn" class="btn primary small">Add Internship</button>
+    <div class="app-shell">
+      <header class="app-header">
+        <div class="brand">
+          <span class="brand-mark">IT</span>
+          <span class="brand-text">Internship Tracker</span>
         </div>
-        <table class="data-table" id="internships-table">
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Company</th>
-              <th>Status</th>
-              <th>Application Deadline</th>
-              <th>Offer Deadline</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </section>
-    </main>
+        <div class="header-actions">
+          <span id="student-name" class="chip"></span>
+          <button id="logout-btn" class="btn ghost">Logout</button>
+        </div>
+      </header>
+      <main class="app-main">
+        <section class="layout">
+          <div class="layout-main">
+            <div class="toolbar">
+              <h1>My Applications</h1>
+              <button id="new-application-btn" class="btn primary">Add Application</button>
+            </div>
+            <div class="pipeline">
+              <div class="column">
+                <h2>Planned</h2>
+                <div class="column-body" data-status="Planned"></div>
+              </div>
+              <div class="column">
+                <h2>Applied</h2>
+                <div class="column-body" data-status="Applied"></div>
+              </div>
+              <div class="column">
+                <h2>Interviewing</h2>
+                <div class="column-body" data-status="Interview - Round 1"></div>
+                <div class="column-body" data-status="Interview - Round 2"></div>
+              </div>
+              <div class="column">
+                <h2>Offers</h2>
+                <div class="column-body" data-status="Offer"></div>
+                <div class="column-body" data-status="Accepted"></div>
+              </div>
+              <div class="column">
+                <h2>Closed</h2>
+                <div class="column-body" data-status="Rejected"></div>
+                <div class="column-body" data-status="Withdrawn"></div>
+              </div>
+            </div>
+          </div>
+          <aside class="layout-side">
+            <div class="card">
+              <h2 class="card-title">Status Breakdown</h2>
+              <canvas id="statusChart"></canvas>
+            </div>
+          </aside>
+        </section>
+      </main>
+    </div>
 
-    <div id="internship-modal" class="modal hidden">
+    <div id="application-modal" class="modal hidden">
+      <div class="modal-backdrop"></div>
       <div class="modal-content card">
-        <h2 id="modal-title">Add Internship</h2>
-        <form id="internship-form">
-          <input type="hidden" id="internship-id" />
-          <label>
-            Title
-            <input type="text" id="title" required />
-          </label>
-          <label>
-            Company Name
-            <input type="text" id="company_name" required />
-          </label>
-          <label>
-            Status
-            <select id="status">
-              <option>Pending</option>
-              <option>Applied</option>
-              <option>Interviewing</option>
-              <option>Accepted</option>
-              <option>Rejected</option>
-            </select>
-          </label>
-          <label>
-            Application Deadline
-            <input type="date" id="application_deadline" />
-          </label>
-          <label>
-            Offer Deadline
-            <input type="date" id="offer_deadline" />
-          </label>
-          <label>
-            Notes
+        <div class="modal-header">
+          <h2 id="modal-title">New Application</h2>
+          <button id="modal-close" class="icon-button" aria-label="Close">&times;</button>
+        </div>
+        <form id="application-form" class="form">
+          <input type="hidden" id="app-id" />
+          <div class="form-row">
+            <div class="form-group">
+              <label for="company-name">Company</label>
+              <input id="company-name" type="text" required />
+            </div>
+            <div class="form-group">
+              <label for="role">Role</label>
+              <input id="role" type="text" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="location">Location</label>
+              <input id="location" type="text" />
+            </div>
+            <div class="form-group">
+              <label for="stipend">Stipend</label>
+              <input id="stipend" type="text" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="application-link">Application Link</label>
+            <input id="application-link" type="url" />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="deadline">Deadline</label>
+              <input id="deadline" type="date" />
+            </div>
+            <div class="form-group">
+              <label for="status">Status</label>
+              <select id="status">
+                <option value="Planned">Planned</option>
+                <option value="Applied">Applied</option>
+                <option value="Interview - Round 1">Interview - Round 1</option>
+                <option value="Interview - Round 2">Interview - Round 2</option>
+                <option value="Offer">Offer</option>
+                <option value="Accepted">Accepted</option>
+                <option value="Rejected">Rejected</option>
+                <option value="Withdrawn">Withdrawn</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="applied-date">Applied Date</label>
+              <input id="applied-date" type="date" />
+            </div>
+            <div class="form-group">
+              <label for="round1-date">Interview Round 1</label>
+              <input id="round1-date" type="date" />
+            </div>
+            <div class="form-group">
+              <label for="round2-date">Interview Round 2</label>
+              <input id="round2-date" type="date" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="offer-details">Offer Details</label>
+            <textarea id="offer-details" rows="2"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="notes">Notes</label>
             <textarea id="notes" rows="3"></textarea>
-          </label>
-          <div class="modal-actions">
-            <button type="button" id="cancel-modal" class="btn secondary">Cancel</button>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="resume">Resume (PDF/DOC, up to 10MB)</label>
+              <input id="resume" type="file" />
+            </div>
+            <div class="form-group">
+              <label for="certificate">Completion Certificate</label>
+              <input id="certificate" type="file" />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="delete-btn" class="btn danger hidden">Delete</button>
             <button type="submit" class="btn primary">Save</button>
           </div>
+          <div id="modal-message" class="message hidden"></div>
         </form>
       </div>
     </div>
 
-    <script src="js/api.js"></script>
     <script src="js/student-dashboard.js"></script>
   </body>
   </html>

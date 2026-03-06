@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const tabs = document.querySelectorAll('.tab');
   const loginTab = $('#login-tab');
   const registerTab = $('#register-tab');
-  const otpForm = $('#otp-form');
   const registerForm = $('#register-form');
   const loginForm = $('#login-form');
   const authMessage = $('#auth-message');
@@ -71,8 +70,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  let pendingEmail = null;
-
   registerForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     clearMessage(authMessage);
@@ -94,42 +91,15 @@ document.addEventListener('DOMContentLoaded', () => {
         showMessage(authMessage, data.message || 'Registration failed');
         return;
       }
-      pendingEmail = email;
-      registerForm.classList.add('hidden');
-      otpForm.classList.remove('hidden');
-      showMessage(authMessage, 'OTP sent. Please check your email.', 'success');
+      registerForm.reset();
+      showMessage(authMessage, data.message || 'Registration successful! Awaiting admin approval.', 'success');
+      setTimeout(() => {
+        loginTab.classList.remove('hidden');
+        registerTab.classList.add('hidden');
+        clearMessage(authMessage);
+      }, 3000);
     } catch (err) {
       showMessage(authMessage, 'Unable to register. Please try again.');
-    }
-  });
-
-  otpForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    clearMessage(authMessage);
-    const otp = $('#otp-code').value.trim();
-    if (!pendingEmail) {
-      showMessage(authMessage, 'Missing pending email. Please register again.');
-      return;
-    }
-    try {
-      const res = await fetch(`${apiBase}/auth/verify-otp`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: pendingEmail, otp }),
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        showMessage(authMessage, data.message || 'OTP verification failed');
-        return;
-      }
-      showMessage(
-        authMessage,
-        'OTP verified. Waiting for system admin approval. You can login once approved.',
-        'success'
-      );
-      otpForm.reset();
-    } catch (err) {
-      showMessage(authMessage, 'Unable to verify OTP. Please try again.');
     }
   });
 });

@@ -24,22 +24,14 @@ router.post('/register', async (req, res) => {
     }
 
     const passwordHash = await bcrypt.hash(password, 10);
-    const otp = generateOtp();
-    const otpExpiresAt = new Date(Date.now() + 15 * 60 * 1000);
 
     await pool.query(
-      `INSERT INTO users (name, email, password_hash, role, department, class_year, class_label, account_status, otp_code, otp_expires_at)
-       VALUES (?, ?, ?, 'STUDENT', ?, ?, ?, 'UNVERIFIED', ?, ?)`,
-      [name, email, passwordHash, department, classYear, classLabel, otp, otpExpiresAt]
+      `INSERT INTO users (name, email, password_hash, role, department, class_year, class_label, account_status)
+       VALUES (?, ?, ?, 'STUDENT', ?, ?, ?, 'PENDING_APPROVAL')`,
+      [name, email, passwordHash, department, classYear, classLabel]
     );
 
-    await sendEmail({
-      to: email,
-      subject: 'Internship Tracker - Email Verification OTP',
-      text: `Your OTP is ${otp}. It is valid for 15 minutes.`,
-    });
-
-    return res.status(201).json({ message: 'Registered successfully. Please verify OTP sent to your email.' });
+    return res.status(201).json({ message: 'Registration successful! Awaiting admin approval to login.' });
   } catch (err) {
     return res.status(500).json({ message: 'Registration failed' });
   }
